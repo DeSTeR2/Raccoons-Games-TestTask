@@ -1,22 +1,20 @@
-using System;
 using System.Collections;
 using Animations;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Infrastructure.StateMachine
 {
     public class LoadingCurtain : MonoBehaviour
     {
-        [SerializeField] AnimationController loadingAnimation;
-        [SerializeField] AnimationController curtainDisappearAnimation;
-        [SerializeField] CanvasGroup canvasGroup;
+        [SerializeField] private AnimationController loadingAnimation;
+        [SerializeField] private AnimationController curtainDisappearAnimation;
+        [SerializeField] private CanvasGroup canvasGroup;
 
-        [Space] 
-        [SerializeField] private TextMeshProUGUI loadingText;
-        [SerializeField] float timeToChangeText = 0.3f;
-        bool _isRunning = false;
+        [Space] [SerializeField] private TextMeshProUGUI loadingText;
+
+        [SerializeField] private float timeToChangeText = 0.3f;
+        private bool _isRunning;
 
         private void Awake()
         {
@@ -43,17 +41,14 @@ namespace Infrastructure.StateMachine
             _isRunning = false;
             gameObject.SetActive(false);
         }
-        
+
         private IEnumerator TextAnimation()
         {
-            int dots = 0;
+            var dots = 0;
             while (_isRunning)
             {
                 loadingText.text = "Loading";
-                for (int i = 0; i < dots; i++)
-                {
-                    loadingText.text += ".";
-                }
+                for (var i = 0; i < dots; i++) loadingText.text += ".";
 
                 dots++;
                 dots %= 4;

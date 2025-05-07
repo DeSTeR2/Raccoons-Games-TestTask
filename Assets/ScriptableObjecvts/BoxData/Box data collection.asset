@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92bb655aca8548d1a379c2316b22910f, type: 3}
+  m_Name: Box data collection
+  m_EditorClassIdentifier: 
+  Datas:
+  - color: {r: 0.38588238, g: 0.8039216, b: 0.38588238, a: 1}
+    number: 2
+    spawnPercent: 75
+  - color: {r: 0.8039216, g: 0.62705886, b: 0.38588238, a: 1}
+    number: 4
+    spawnPercent: 25
+  - color: {r: 0.8039216, g: 0.38588238, b: 0.6752942, a: 0}
+    number: 8
+    spawnPercent: 0
+  - color: {r: 0.5788235, g: 0.8039216, b: 0.38588238, a: 0}
+    number: 16
+    spawnPercent: 0
+  - color: {r: 0.8039216, g: 0.38588238, b: 0.38588238, a: 0}
+    number: 32
+    spawnPercent: 0
+  - color: {r: 0.38588238, g: 0.6913725, b: 0.8039216, a: 0}
+    number: 64
+    spawnPercent: 0
+  - color: {r: 0.8039216, g: 0.48235297, b: 0.38588238, a: 0}
+    number: 128
+    spawnPercent: 0
+  - color: {r: 0.39393762, g: 0.25035298, b: 0.52156866, a: 0}
+    number: 256
+    spawnPercent: 0
+  - color: {r: 0.38588238, g: 0.8039216, b: 0.7717647, a: 0}
+    number: 512
+    spawnPercent: 0
+  - color: {r: 0.38588238, g: 0.41803926, b: 0.8039216, a: 0}
+    number: 1024
+    spawnPercent: 0
+  - color: {r: 0.17590779, g: 0.20519212, b: 0.5566038, a: 0}
+    number: 2048
+    spawnPercent: 0
+  - color: {r: 0.6431373, g: 0.8039216, b: 0.38588238, a: 0}
+    number: 4096
+    spawnPercent: 0

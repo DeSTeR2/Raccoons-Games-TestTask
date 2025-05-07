@@ -6,10 +6,10 @@ namespace Animations.Types
     [RequireComponent(typeof(CanvasGroup))]
     public class FadeAnimation : AnimationObject
     {
-        [SerializeField] float _startAlpha = 0;
-        [SerializeField] float _endAlpha = 1;
+        [SerializeField] private float _startAlpha;
+        [SerializeField] private float _endAlpha = 1;
 
-        CanvasGroup _canvasGroup;
+        private CanvasGroup _canvasGroup;
 
         private void GetCanvasGroup()
         {
@@ -22,7 +22,8 @@ namespace Animations.Types
             GetCanvasGroup();
 
             SetToStartValue();
-            _canvasGroup.DOFade(_endAlpha, _duration).SetEase(_ease).SetLoops(_loopNuber, _loopType).OnComplete(() => { OnAnimationEnd?.Invoke(); });
+            _canvasGroup.DOFade(_endAlpha, _duration).SetEase(_ease).SetLoops(_loopNuber, _loopType)
+                .OnComplete(() => { OnAnimationEnd?.Invoke(); });
         }
 
         public override void AnimateReverce()
@@ -30,7 +31,8 @@ namespace Animations.Types
             GetCanvasGroup();
 
             _canvasGroup.alpha = _endAlpha;
-            _canvasGroup.DOFade(_startAlpha, _duration).SetEase(_ease).SetLoops(_loopNuber, _loopType).OnComplete(() => { OnAnimationEnd?.Invoke(); });
+            _canvasGroup.DOFade(_startAlpha, _duration).SetEase(_ease).SetLoops(_loopNuber, _loopType)
+                .OnComplete(() => { OnAnimationEnd?.Invoke(); });
         }
 
         public override void SetToStartValue()

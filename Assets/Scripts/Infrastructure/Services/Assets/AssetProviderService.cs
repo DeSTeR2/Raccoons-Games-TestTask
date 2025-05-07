@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 namespace Infrastructure.Services.Assets
 {
@@ -9,16 +10,22 @@ namespace Infrastructure.Services.Assets
             return Resources.Load<TAsset>(path);
         }
 
-        public void Instantiate(string path)
+        public T Instantiate<T>(string path, DiContainer container)
         {
-            GameObject go = GetAsset<GameObject>(path);
-            Object.Instantiate(go);
+            var go = GetAsset<GameObject>(path);
+            go = container.InstantiatePrefab(go);
+
+            var obj = go.GetComponent<T>();
+            return obj;
         }
 
-        public void Instantiate(string path, Transform at)
-        {            
-            GameObject go = GetAsset<GameObject>(path);
-            Object.Instantiate(go, at.position, Quaternion.identity);
+        public T Instantiate<T>(string path, Transform at, DiContainer container)
+        {
+            var go = GetAsset<GameObject>(path);
+            go = container.InstantiatePrefab(go, at);
+
+            var obj = go.GetComponent<T>();
+            return obj;
         }
     }
 }

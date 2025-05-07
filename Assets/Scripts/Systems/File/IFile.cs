@@ -1,4 +1,6 @@
 ﻿namespace Utils
 {
-    public interface IFile : ISavable, ILoadable {}
+    public interface IFile : ISavable, ILoadable
+    {
+    }
 }

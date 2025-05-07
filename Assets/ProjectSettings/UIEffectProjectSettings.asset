@@ -36,6 +36,8 @@ ShaderVariantCollection:
       variants:
       - keywords: 
         passType: 0
+      - keywords: COLOR_FILTER
+        passType: 0
       - keywords: GRADATION_COLOR2
         passType: 0
       - keywords: TRANSITION_FADE

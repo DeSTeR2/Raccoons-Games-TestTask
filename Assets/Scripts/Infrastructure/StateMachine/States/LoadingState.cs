@@ -1,12 +1,11 @@
 using System;
-using UnityEngine;
 
 namespace Infrastructure.StateMachine.States
 {
     public class LoadingState : IPayloadExitNotify<string>
     {
         private readonly SceneLoader _sceneLoader;
-        
+
         public LoadingState(SceneLoader sceneLoader)
         {
             _sceneLoader = sceneLoader;
@@ -19,7 +18,6 @@ namespace Infrastructure.StateMachine.States
 
         public void Exit()
         {
-            Debug.Log("Exit LoadingState");
         }
     }
 }

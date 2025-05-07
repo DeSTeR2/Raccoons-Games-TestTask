@@ -1,14 +1,13 @@
-﻿using System.IO;
-using System;
+﻿using System;
+using System.IO;
 using UnityEngine;
-
 
 namespace Utils
 {
     public static class FileSystem
     {
         /// <summary>
-        /// Saves data to a file
+        ///     Saves data to a file
         /// </summary>
         /// <typeparam name="T">Save data type</typeparam>
         /// <param name="fileName">File name</param>
@@ -17,12 +16,12 @@ namespace Utils
         {
             try
             {
-                string path = Path.Combine(Application.persistentDataPath, fileName);
-                string json = JsonUtility.ToJson(data, true);
+                var path = Path.Combine(Application.persistentDataPath, fileName);
+                var json = JsonUtility.ToJson(data, true);
 
-                using (FileStream stream = new FileStream(path, FileMode.Create))
+                using (var stream = new FileStream(path, FileMode.Create))
                 {
-                    using (StreamWriter writer = new StreamWriter(stream))
+                    using (var writer = new StreamWriter(stream))
                     {
                         writer.Write(json);
                     }
@@ -37,7 +36,7 @@ namespace Utils
         }
 
         /// <summary>
-        /// Load info from a json file
+        ///     Load info from a json file
         /// </summary>
         /// <typeparam name="T">Load data type</typeparam>
         /// <param name="fileName">File name</param>
@@ -46,20 +45,20 @@ namespace Utils
         {
             try
             {
-                string path = Path.Combine(Application.persistentDataPath, fileName);
+                var path = Path.Combine(Application.persistentDataPath, fileName);
                 Debug.Log($"Load path: {path}");
 
-                string json = "";
-                using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
+                var json = "";
+                using (var stream = new FileStream(path, FileMode.OpenOrCreate))
                 {
-                    using (StreamReader reader = new StreamReader(stream))
+                    using (var reader = new StreamReader(stream))
                     {
                         json = reader.ReadToEnd();
                     }
                 }
 
                 Debug.Log($"Readed JSON: {json}");
-                T data = JsonUtility.FromJson<T>(json);
+                var data = JsonUtility.FromJson<T>(json);
 
                 Debug.Log("Load succesful!");
                 return data;
@@ -67,13 +66,13 @@ namespace Utils
             catch (Exception e)
             {
                 Debug.LogError("Load error!\n" + e.Message);
-                return default(T);
+                return default;
             }
         }
 
 
         /// <summary>
-        /// Load data and assign it to a class
+        ///     Load data and assign it to a class
         /// </summary>
         /// <typeparam name="T">Load data type</typeparam>
         /// <typeparam name="U">Class to assign data to</typeparam>
@@ -82,7 +81,7 @@ namespace Utils
         /// <returns></returns>
         public static bool Load<T>(string fileName, ILoadable toAssign) where T : IData
         {
-            T data = Load<T>(fileName);
+            var data = Load<T>(fileName);
             toAssign.Assign(data);
             return true;
         }

@@ -79,8 +79,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _saveLoadClassSystem: {fileID: 8499589120210494034}
   loadingCurtain: {fileID: 7119383112251809986}
-  forcedTimeToWait: 3
+  forcedTimeToWait: 0
   _bootsTrapper: {fileID: 1632805929028074718}
+  allEvents: {fileID: 11400000, guid: f9f64b47e48172d41b40c497e25aa0e3, type: 2}
 --- !u!1 &1547061936628960219
 GameObject:
   m_ObjectHideFlags: 0

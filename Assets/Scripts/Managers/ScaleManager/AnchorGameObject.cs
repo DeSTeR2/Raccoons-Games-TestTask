@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 [ExecuteInEditMode]
 public class AnchorGameObject : MonoBehaviour
@@ -14,29 +14,40 @@ public class AnchorGameObject : MonoBehaviour
         MiddleRight,
         TopLeft,
         TopCenter,
-        TopRight,
-    };
+        TopRight
+    }
 
     public bool executeInUpdate;
 
     public AnchorType anchorType;
     public Vector3 anchorOffset;
 
-    IEnumerator updateAnchorRoutine; //Coroutine handle so we don't start it if it's already running
+    private IEnumerator updateAnchorRoutine; //Coroutine handle so we don't start it if it's already running
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         updateAnchorRoutine = UpdateAnchorAsync();
         StartCoroutine(updateAnchorRoutine);
     }
 
-    /// <summary>
-    /// Coroutine to update the anchor only once CameraFit.Instance is not null.
-    /// </summary>
-    IEnumerator UpdateAnchorAsync()
+#if UNITY_EDITOR
+    // Update is called once per frame
+    private void Update()
     {
+        if (updateAnchorRoutine == null && executeInUpdate)
+        {
+            updateAnchorRoutine = UpdateAnchorAsync();
+            StartCoroutine(updateAnchorRoutine);
+        }
+    }
+#endif
 
+    /// <summary>
+    ///     Coroutine to update the anchor only once CameraFit.Instance is not null.
+    /// </summary>
+    private IEnumerator UpdateAnchorAsync()
+    {
         uint cameraWaitCycles = 0;
 
         while (CameraViewportHandler.Instance == null)
@@ -46,17 +57,15 @@ public class AnchorGameObject : MonoBehaviour
         }
 
         if (cameraWaitCycles > 0)
-        {
             print(string.Format("CameraAnchor found CameraFit instance after waiting {0} frame(s). " +
-                "You might want to check that CameraFit has an earlie execution order.", cameraWaitCycles));
-        }
+                                "You might want to check that CameraFit has an earlie execution order.",
+                cameraWaitCycles));
 
         UpdateAnchor();
         updateAnchorRoutine = null;
-
     }
 
-    void UpdateAnchor()
+    private void UpdateAnchor()
     {
         switch (anchorType)
         {
@@ -90,24 +99,9 @@ public class AnchorGameObject : MonoBehaviour
         }
     }
 
-    void SetAnchor(Vector3 anchor)
+    private void SetAnchor(Vector3 anchor)
     {
-        Vector3 newPos = anchor + anchorOffset;
-        if (!transform.position.Equals(newPos))
-        {
-            transform.position = newPos;
-        }
+        var newPos = anchor + anchorOffset;
+        if (!transform.position.Equals(newPos)) transform.position = newPos;
     }
-
-#if UNITY_EDITOR
-    // Update is called once per frame
-    void Update()
-    {
-        if (updateAnchorRoutine == null && executeInUpdate)
-        {
-            updateAnchorRoutine = UpdateAnchorAsync();
-            StartCoroutine(updateAnchorRoutine);
-        }
-    }
-#endif
 }

@@ -7,21 +7,19 @@ namespace Animations
 {
     public class AnimationController : MonoBehaviour
     {
-        [SerializeField] AnimationObject[] _animations;
-        [SerializeField] bool playOnAwake = false;
-
-        public Action OnAnimationsEnd;
-        int _animationEnd = 0;
-
         public delegate void CallBack();
 
-        CallBack _callBack;
+        [SerializeField] private AnimationObject[] _animations;
+        [SerializeField] private bool playOnAwake;
+        private int _animationEnd;
+
+        private CallBack _callBack;
+
+        public Action OnAnimationsEnd;
 
         private void Start()
         {
-            for (int i = 0; i < _animations.Length; i++) {
-                _animations[i].OnAnimationEnd += ControllAnimationFlow;
-            }
+            for (var i = 0; i < _animations.Length; i++) _animations[i].OnAnimationEnd += ControllAnimationFlow;
 
             if (playOnAwake) StartAnimation();
         }
@@ -29,9 +27,7 @@ namespace Animations
         public AnimationController StartAnimation()
         {
             _animationEnd = 0;
-            for (int i = 0; i < _animations.Length; ++i) {
-                _animations[i].Animate();
-            }
+            for (var i = 0; i < _animations.Length; ++i) _animations[i]?.Animate();
 
             return this;
         }
@@ -41,10 +37,7 @@ namespace Animations
             await Task.Run(() =>
             {
                 _animationEnd = 0;
-                for (int i = 0; i < _animations.Length; ++i)
-                {
-                    _animations[i].Animate();
-                }
+                for (var i = 0; i < _animations.Length; ++i) _animations[i].Animate();
             });
 
             return this;
@@ -53,10 +46,7 @@ namespace Animations
         public AnimationController StartReverceAnimation()
         {
             _animationEnd = 0;
-            for (int i = 0; i < _animations.Length; ++i)
-            {
-                _animations[i].AnimateReverce();
-            }
+            for (var i = 0; i < _animations.Length; ++i) _animations[i].AnimateReverce();
 
             return this;
         }
@@ -66,25 +56,20 @@ namespace Animations
             await Task.Run(() =>
             {
                 _animationEnd = 0;
-                for (int i = 0; i < _animations.Length; ++i)
-                {
-                    _animations[i].Animate();
-                }
+                for (var i = 0; i < _animations.Length; ++i) _animations[i].Animate();
             });
 
             return this;
         }
 
-        public AnimationController StartAnimation(Transform animateObject) {
+        public AnimationController StartAnimation(Transform animateObject)
+        {
             _animationEnd = 0;
-            for (int i = 0; i < _animations.Length; ++i)
-            {
-                _animations[i].Animate(animateObject);
-            }
+            for (var i = 0; i < _animations.Length; ++i) _animations[i].Animate(animateObject);
 
             return this;
         }
-        
+
         public AnimationController Callback(CallBack callBack)
         {
             _callBack = callBack;
@@ -95,7 +80,8 @@ namespace Animations
         {
             _animationEnd++;
 
-            if (_animationEnd == _animations.Length) {
+            if (_animationEnd == _animations.Length)
+            {
                 _callBack?.Invoke();
                 OnAnimationsEnd?.Invoke();
                 _animationEnd = 0;
@@ -104,18 +90,14 @@ namespace Animations
 
         public void SetToStartValue()
         {
-            foreach (var animationObject in _animations)
-            {
-                animationObject.SetToStartValue();
-            }
+            foreach (var animationObject in _animations) animationObject.SetToStartValue();
         }
 
         public bool IsThereInfiniteLoop()
         {
             foreach (var animation in _animations)
-            {
-                if (animation.IsInfinite()) return true;
-            }
+                if (animation.IsInfinite())
+                    return true;
             return false;
         }
     }

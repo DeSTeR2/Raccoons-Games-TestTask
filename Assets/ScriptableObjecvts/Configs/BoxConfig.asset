@@ -24,5 +24,6 @@ MonoBehaviour:
   sideForce:
     min: -4
     max: 4
+  delayBetweenSpawn: 0.2
   shootingForce: 1000
-  shootDirection: {x: 0, y: 0.2, z: 0.8}
+  shootDirection: {x: 0, y: 0.1, z: 0.8}

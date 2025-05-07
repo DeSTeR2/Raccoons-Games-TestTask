@@ -8,7 +8,6 @@ namespace Game.Box
 {
     public class Box : MonoBehaviour
     {
-        private static readonly int BoxColor = Shader.PropertyToID("_BoxColor");
         [SerializeField] private Transform textParent;
         [SerializeField] private MeshRenderer renderer;
 
@@ -53,8 +52,6 @@ namespace Game.Box
             _config.ApplyScale(gameObject);
 
             _boxController = boxController;
-            blockMaterial = new Material(renderer.material);
-            renderer.material = blockMaterial;
 
             textes = new List<TextMeshPro>();
             for (var i = 0; i < textParent.childCount; i++)
@@ -65,7 +62,7 @@ namespace Game.Box
 
         public void SetBoxVisual(BoxData boxData)
         {
-            SetMaterialColor(boxData.color);
+            SetMaterialColor(boxData);
             SetText(boxData.number);
 
             CurrentData = boxData;
@@ -87,9 +84,10 @@ namespace Game.Box
             foreach (var texte in textes) texte.text = boxDataNumber.ToString();
         }
 
-        private void SetMaterialColor(Color boxDataColor)
+        private void SetMaterialColor(BoxData boxData)
         {
-            blockMaterial.SetColor(BoxColor, boxDataColor);
+            Material material = boxData.GetMaterial(renderer.material);
+            renderer.material = material;
         }
 
         public void ApplyShootForce(Vector3 shootVector)

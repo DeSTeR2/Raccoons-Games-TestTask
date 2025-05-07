@@ -1,4 +1,6 @@
 using Systems.File;
+using UnityEngine;
+using Screen = UnityEngine.Device.Screen;
 
 namespace Infrastructure.StateMachine.States
 {
@@ -15,6 +17,7 @@ namespace Infrastructure.StateMachine.States
 
         public void Enter(int param)
         {
+            Screen.orientation = ScreenOrientation.Portrait;
             _saveLoadClassSystem.FindAndLoad();
             _stateMachine.Enter<MenuState>();
         }
